@@ -19,12 +19,12 @@
   </repositories>
   <distributionManagement>
     <repository>
-        <id>central</id>
+        <id>gitlab-maven</id>
         <name>Demo-dep</name>
         <url>http://localhost:8081/artifactory/libs-release-local</url>
     </repository>
     <snapshotRepository>
-        <id>snapshots</id>
+        <id>gitlab-maven</id>
         <name>Demo-depsnap</name>
         <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
