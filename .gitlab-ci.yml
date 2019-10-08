@@ -8,4 +8,4 @@ build:
 test:
     stage: test
     script:
-        -mvn test
+        - mvn test
