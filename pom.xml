@@ -14,19 +14,19 @@
   <repositories>
     <repository>
       <id>gitlab-maven</id>
-      <url>>http://localhost:8081/artifactory/libs-release-local</url>
+      <url>>http://10.72.80.82:8081/artifactory/libs-release-local</url>
     </repository>
   </repositories>
   <distributionManagement>
     <repository>
         <id>gitlab-maven</id>
         <name>Demo-dep</name>
-        <url>http://localhost:8081/artifactory/libs-release-local</url>
+        <url>http://10.72.80.82:8081/artifactory/libs-release-local</url>
     </repository>
     <snapshotRepository>
         <id>gitlab-maven</id>
         <name>Demo-depsnap</name>
-        <url>http://localhost:8081/artifactory/libs-snapshot-local</url>
+        <url>http://10.72.80.82:8081/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
   </distributionManagement>
   <dependencies>
