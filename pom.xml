@@ -23,7 +23,7 @@
     <repository>
         <id>central</id>
         <name>ip-172-31-40-229.ap-south-1.compute.internal-releases</name>
-        <url>http://13.233.51.12:8081/artifactory/libs-release-local</url>
+        <url>${env.JFROG_REPO_URL}/libs-release-local</url>
     </repository>
 </distributionManagement>
 </project>
