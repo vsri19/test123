@@ -36,7 +36,7 @@ build-app:
   script: 
     - mvn $MAVEN_CLI_OPTS build -s ci_settings.xml
     
-build-app:
+test-app:
   stage: test
   script: 
     - mvn $MAVEN_CLI_OPTS test -s ci_settings.xml
