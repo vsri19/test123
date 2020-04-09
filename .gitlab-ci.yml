@@ -14,22 +14,17 @@ stages:
     - test
     - deploy
 
-.build:
+build:
     stage: build
     script:
         - mvn $MAVEN_CLI_OPTS compile
     only:
-        - master
+        - branches: abc
     artifacts:
         paths:
             - artifact_folder/*
-            
-test:
-    stage: test
-    script:
-        - echo "test"
 
-test@:
+test:
     image: maven:3.6.3
     stage: test
     script:
