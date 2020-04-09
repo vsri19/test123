@@ -20,7 +20,7 @@ build:
         - mvn $MAVEN_CLI_OPTS compile
     only:
         refs: 
-            - branches: abc
+            - branch: abc
     artifacts:
         paths:
             - artifact_folder/*
