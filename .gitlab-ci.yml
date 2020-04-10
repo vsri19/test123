@@ -17,6 +17,8 @@ variables:
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  SONAR_URL: "$SONAR_HOST_URL"
+  SONAR_PROJECT_KEY: "$CI_PROJECT_NAMESPACE:$CI_PROJECT_NAME"
 
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
@@ -24,6 +26,7 @@ image: maven:3.3.9-jdk-8
 stages:  
   - build  
   - test  
+  - quality
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
@@ -40,5 +43,10 @@ test-app:
   stage: test
   script: 
     - mvn $MAVEN_CLI_OPTS test -s ci_settings.xml
+    
+quality_app:
+  stage: quality
+  script:
+    -mvn clean install sonar:sonar $MAVEN_CLI_OPTS -Dsonar.host.url=$SONAR_URL  -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY 
 
 
