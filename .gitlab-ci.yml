@@ -16,6 +16,9 @@ stages:
 
 build:
     stage: build
+    before_script:
+        - apt-get install zip
+
     script:
         ##- mvn $MAVEN_CLI_OPTS compile
         - echo $CI_PROJECT_DIR
