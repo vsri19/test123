@@ -47,6 +47,6 @@ test-app:
 quality_app:
   stage: quality
   script:
-    - mvn clean install sonar:sonar -s ci_settings.xml $MAVEN_CLI_OPTS -Dsonar.host.url=$SONAR_URL  -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY 
+    - mvn $MAVEN_CLI_OPTS clean install sonar:sonar -s ci_settings.xml  -Dsonar.host.url=$SONAR_URL  -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY 
 
 
