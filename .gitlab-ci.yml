@@ -37,6 +37,9 @@ cache:
 build-app:
   stage: build
   script: 
+    - echo $SONAR_URL
+    - echo $SONAR_TOKEN
+    - echo $SONAR_PROJECT_KEY 
     - mvn $MAVEN_CLI_OPTS compile -s ci_settings.xml
     
 test-app:
