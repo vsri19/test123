@@ -17,15 +17,17 @@ stages:
 build:
     stage: build
     script:
-        - mvn $MAVEN_CLI_OPTS compile
+        ##- mvn $MAVEN_CLI_OPTS compile
+        - echo $CI_PROJECT_DIR
+        - zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
         refs: 
-            - abc
-    artifacts:
-        paths:
-            - artifact_folder/*
+            - zip_folder
+    ##artifacts:
+        ##paths:
+            ##- artifact_folder/*
 
-test:
+.test:
     image: maven:3.6.3
     stage: test
     script:
