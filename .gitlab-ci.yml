@@ -10,9 +10,9 @@ build:
         - apk add zip
     script:
         - echo "hello:"
-        - ls -lrt
+        ##- ls -lrt
         - zip -r simple.zip $CI_PROJECT_DIR/*
-        - ls -lrt
+        ##- ls -lrt
     artifacts:
         paths:
             - simple.zip
