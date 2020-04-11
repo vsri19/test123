@@ -6,7 +6,7 @@ stages:
 build:
     stage: build
     before_script:
-        - yum update
+        - apk-get update
         ##- apk add zip
     script:
         - echo "hello:"
