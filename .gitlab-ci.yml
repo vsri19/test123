@@ -1,18 +1,7 @@
 image: alpine:latest
 
-variables:
-    MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-    MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
-
-##cache:
-  ##paths:
-    ##- .m2/repository/
-    ##- target/
-    
 stages:
     - build
-    - test
-    - deploy
 
 build:
     stage: build
@@ -20,15 +9,12 @@ build:
         - apk update
         - apk add zip
     script:
-        ##- mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
-        - zip -r simple-mven-dep.zip $CI_PROJECT_DIR
-    only:
-        refs: 
-            - zip_folder
+        - zip -r simple-mven-dep.zip $CI_PROJECT_DIR/*
     artifacts:
         paths:
             - simple-maven-dep.zip
+            - README.md
 
 .test:
     image: maven:3.6.3
