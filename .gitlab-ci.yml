@@ -1,4 +1,4 @@
-image: node:latest
+image: alpine:latest
 
 variables:
     MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
@@ -16,19 +16,19 @@ stages:
 
 build:
     stage: build
-    ##before_script:
-        ##- yum update
-        ##- apt-get install zip unzip
+    before_script:
+        - apk update
+        - apk add zip
     script:
-        ##- mvn $MAVEN_CLI_OPTS compile
+        - mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
         - zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
         refs: 
             - zip_folder
-    ##artifacts:
-        ##paths:
-            ##- simple-maven-dep.zip
+    artifacts:
+        paths:
+            - simple-maven-dep.zip
 
 .test:
     image: maven:3.6.3
