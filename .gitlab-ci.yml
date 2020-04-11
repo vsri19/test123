@@ -6,7 +6,7 @@ stages:
 build:
     stage: build
     before_script:
-        - apk-get update
+        - apt-get update
         ##- apk add zip
     script:
         - echo "hello:"
