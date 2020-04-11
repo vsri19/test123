@@ -21,7 +21,7 @@ build:
         - yum install zip
     script:
         ##- mvn $MAVEN_CLI_OPTS compile
-        - echo $CI_PROJECT_DIR
+        - echo "hello:"
         ##- zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
         refs: 
