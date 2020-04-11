@@ -18,7 +18,7 @@ build:
     stage: build
     before_script:
         ##- yum update
-        - apk add zip
+        - apt-get install zip
     script:
         ##- mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
