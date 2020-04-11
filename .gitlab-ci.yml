@@ -6,12 +6,12 @@ stages:
 build:
     stage: build
     before_script:
-        - apk update
-        - apk add zip
+        - yum update
+        ##- apk add zip
     script:
         - echo "hello:"
         - ls -lrt
-        - zip -r simple-mvn.zip $CI_PROJECT_DIR/*
+        ##- zip -r simple-mvn.zip $CI_PROJECT_DIR/*
         - ls -lrt
     artifacts:
         paths:
