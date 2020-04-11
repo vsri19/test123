@@ -16,13 +16,13 @@ stages:
 
 build:
     stage: build
-    before_script:
+    ##before_script:
         ##- yum update
-        - apt-get install zip unzip
+        ##- apt-get install zip unzip
     script:
         ##- mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
-        ##- zip -r simple-mven-dep.zip $CI_PROJECT_DIR
+        - zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
         refs: 
             - zip_folder
