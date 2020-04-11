@@ -11,11 +11,11 @@ build:
     script:
         - echo "hello:"
         ##- ls -lrt
-        - zip -r simple.zip $CI_PROJECT_DIR/*
+        - zip -r simple-mvn.zip $CI_PROJECT_DIR/*
         ##- ls -lrt
     artifacts:
         paths:
-            - simple.zip
+            - simple-mvn.zip
             - README.md
 
 .test:
