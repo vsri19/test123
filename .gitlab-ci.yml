@@ -37,6 +37,7 @@ cache:
 build-app:
   stage: build
   script: 
+    - echo $CI_COMMIT_REF_NAME
     - echo $SONAR_URL
     - echo $SONAR_TOKEN
     - echo $SONAR_PROJECT_KEY 
