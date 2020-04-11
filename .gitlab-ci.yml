@@ -24,6 +24,7 @@ variables:
 image: maven:3.3.9-jdk-8
 
 stages:  
+  - check
   - build  
   - test  
   - quality
@@ -43,6 +44,11 @@ build-app:
     - echo $SONAR_PROJECT_KEY 
     - mvn $MAVEN_CLI_OPTS compile -s ci_settings.xml
     
+check-branch:
+  stage: check
+  script:
+    - if [ $CI_COMMIT_REF_NAME != "master" ]; then echo "deploy to PROD" ; else if [ $CI_COMMIT_REF_NAME != "develop" ]; then echo "deploy to DEV"
+
 test-app:
   stage: test
   script: 
