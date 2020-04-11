@@ -20,7 +20,7 @@ build:
         - apk update
         - apk add zip
     script:
-        - mvn $MAVEN_CLI_OPTS compile
+        ##- mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
         - zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
