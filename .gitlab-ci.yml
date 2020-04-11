@@ -17,8 +17,8 @@ stages:
 build:
     stage: build
     before_script:
-        - yum update
-        - yum install zip
+        ##- yum update
+        - apt install zip
     script:
         ##- mvn $MAVEN_CLI_OPTS compile
         - echo "hello:"
