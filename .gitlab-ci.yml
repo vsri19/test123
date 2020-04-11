@@ -50,6 +50,7 @@ check-branch:
     - if [ $CI_COMMIT_REF_NAME != "master" ]; then echo "push master" ; elif [ $CI_COMMIT_REF_NAME != "develop" ]; then echo "push develop"; fi   
     - if [ $CI_COMMIT_REF_NAME != "master" ]; then echo "push master" ; elif [ $CI_COMMIT_REF_NAME != "develop" ]; then echo "push develop"; elif [ $CI_COMMIT_REF_NAME != "release" ]; then echo "push release"; fi 
 
+
 test-app:
   stage: test
   script: 
