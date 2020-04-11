@@ -16,16 +16,19 @@ stages:
 
 build:
     stage: build
+    before_script:
+        - yum update
+        - yum install zip
     script:
-        - mvn $MAVEN_CLI_OPTS compile
-        ##- echo $CI_PROJECT_DIR
+        ##- mvn $MAVEN_CLI_OPTS compile
+        - echo $CI_PROJECT_DIR
         ##- zip -r simple-mven-dep.zip $CI_PROJECT_DIR
     only:
         refs: 
             - zip_folder
-    artifacts:
-        paths:
-            - artifact_folder/*
+    ##artifacts:
+        ##paths:
+            ##- simple-maven-dep.zip
 
 .test:
     image: maven:3.6.3
