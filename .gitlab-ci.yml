@@ -10,10 +10,12 @@ build:
         - apk add zip
     script:
         - echo "hello:"
-        - zip -r simple-mven-dep.zip $CI_PROJECT_DIR/*
+        - ls -lrt
+        - zip -r simple.zip $CI_PROJECT_DIR/*
+        - ls -lrt
     artifacts:
         paths:
-            - simple-maven-dep.zip
+            - simple.zip
             - README.md
 
 .test:
