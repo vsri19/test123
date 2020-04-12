@@ -39,7 +39,6 @@ build-app:
   stage: build
   script: 
     - echo $CI_COMMIT_REF_NAME
-    - if [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "ENDENDENDEND ............" ; fi
     - echo $SONAR_URL
     - echo $SONAR_TOKEN
     - echo $SONAR_PROJECT_KEY 
@@ -58,13 +57,9 @@ test-app:
 check-branch:
   stage: check
   script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then
-        echo "Deploy to PROD" ;
-      elif [ $CI_COMMIT_REF_NAME = "develop" ]; then
-        echo "Deploy to DEV";
-      elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then
-        echo "Deploy to INT";
-      elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then
-        echo "END";
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then echo "Deploy to PROD" ;
+      elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "Deploy to DEV";
+      elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then echo "Deploy to INT";
+      elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
 
