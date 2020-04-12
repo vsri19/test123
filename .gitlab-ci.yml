@@ -41,10 +41,6 @@ cache:
 build-app:
   stage: build
   script: 
-    - echo $CI_COMMIT_REF_NAME
-    - echo $SONAR_URL
-    - echo $SONAR_TOKEN
-    - echo $SONAR_PROJECT_KEY 
     - mvn $MAVEN_CLI_OPTS compile -s ci_settings.xml
     
 test-app:
@@ -60,19 +56,19 @@ test-app:
 check-branch:
   stage: check
   script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then ENV_DEPLOY="dev";
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then 
+        "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master -O prop-conf-dev.yml";
       elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "Deploy to DEV";
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
-    - ENV_DEPLOY="dev"
-    - echo $ENV_DEPLOY
+    - cat prop-conf-dev.yml
 
 get-prop-env:
   stage: upload
   script:
     - echo "chaine1"${ENV_DEPLOY}"chaine2" 
-    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master -O prop-conf-dev.yml"
+    #- "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master -O prop-conf-dev.yml"
     - cat prop-conf-dev.yml
 
 deploy-to-integration:  
