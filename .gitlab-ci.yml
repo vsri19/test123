@@ -57,12 +57,11 @@ test-app:
 check-branch:
   stage: check
   script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then echo "push master" ; elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "push develop"; elif [ $CI_COMMIT_REF_NAME = "release" ]; then echo "push release"; fi
     - if [ $CI_COMMIT_REF_NAME = "master" ]; then
-        echo "push master" ;
+        echo "Deploy to PROD" ;
       elif [ $CI_COMMIT_REF_NAME = "develop" ]; then
-        echo "push develop";
+        echo "Deploy to DEV";
       elif [ $CI_COMMIT_REF_NAME = "release" ]; then
-        echo "push release";
+        echo "Deploy to INT";
       fi
 
