@@ -41,7 +41,6 @@ cache:
 build-app:
   stage: build
   script: 
-    - SONAR_URL="hhhhhhhhhhhhhhhh"
     - echo $CI_COMMIT_REF_NAME
     - echo $SONAR_URL
     - echo $SONAR_TOKEN
@@ -66,6 +65,7 @@ check-branch:
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
+    - ENV_DEPLOY="dev"
     - echo $ENV_DEPLOY
 
 get-prop-env:
