@@ -72,7 +72,7 @@ get-prop-env:
   stage: upload
   script:
     - echo "chaine1"${ENV_DEPLOY}"chaine2" 
-    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master -O prop-conf-${ENV_DEPLOY}.yml"
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master -O prop-conf-dev.yml"
     - cat prop-conf-dev.yml
 
 deploy-to-integration:  
