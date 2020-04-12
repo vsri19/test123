@@ -19,6 +19,7 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   SONAR_URL: "$SONAR_HOST_URL"
   SONAR_PROJECT_KEY: "$CI_PROJECT_NAMESPACE:$CI_PROJECT_NAME"
+  ENV_DEPLOY: "none"
 
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
@@ -60,12 +61,12 @@ test-app:
 check-branch:
   stage: check
   script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then SONAR_URL="dddddddddddddddd";
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then ENV_DEPLOY="prod";
       elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "Deploy to DEV";
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
-    - echo $SONAR_URL
+    - echo $ENV_DEPLOY
 
 get-prop-env:
   stage: upload
