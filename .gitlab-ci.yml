@@ -39,7 +39,7 @@ build-app:
   stage: build
   script: 
     - echo $CI_COMMIT_REF_NAME
-    - if [ $CI_COMMIT_REF_NAME == "feature"* ]; then echo "ENDENDENDEND ............"
+    - if [ $CI_COMMIT_REF_NAME == "feature"* ]; then echo "ENDENDENDEND ............" ; fi
     - echo $SONAR_URL
     - echo $SONAR_TOKEN
     - echo $SONAR_PROJECT_KEY 
