@@ -61,7 +61,7 @@ test-app:
 check-branch:
   stage: check
   script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then ENV_DEPLOY="prod";
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then ENV_DEPLOY="dev";
       elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "Deploy to DEV";
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
@@ -71,7 +71,7 @@ check-branch:
 get-prop-env:
   stage: upload
   script:
-    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml"
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-$ENV_DEPLOY.yml/raw?ref=master' -O prop-conf-$ENV_DEPLOY.yml"
     - cat prop-conf-dev.yml
 
 deploy-to-integration:  
