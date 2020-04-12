@@ -19,7 +19,6 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   SONAR_URL: "$SONAR_HOST_URL"
   SONAR_PROJECT_KEY: "$CI_PROJECT_NAMESPACE:$CI_PROJECT_NAME"
-  ENV_VAR: "LOCAL"
 
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
