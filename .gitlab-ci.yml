@@ -63,3 +63,15 @@ check-branch:
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
 
+get-prop-env:
+  stage: upload
+  script:
+    - wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml
+    - echo prop-conf-dev.yml
+
+deploy-to-integration:  
+  stage: deploy  
+  dependencies:  
+    - get-prop-env  
+  script:  
+    - echo "(TODO) deploy to integration env"  
