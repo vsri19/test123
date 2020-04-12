@@ -28,6 +28,7 @@ stages:
   - test  
     #- quality
   - check
+  - upload
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
@@ -66,7 +67,7 @@ check-branch:
 get-prop-env:
   stage: upload
   script:
-    - wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml
+          #- wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml
     - echo prop-conf-dev.yml
 
 deploy-to-integration:  
