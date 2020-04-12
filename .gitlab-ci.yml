@@ -44,17 +44,6 @@ build-app:
     - echo $SONAR_PROJECT_KEY 
     - mvn $MAVEN_CLI_OPTS compile -s ci_settings.xml
     
-check-branch:
-  stage: check
-  script:
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then echo "push master" ; elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "push develop"; elif [ $CI_COMMIT_REF_NAME = "release" ]; then echo "push release"; fi 
-    - if [ $CI_COMMIT_REF_NAME = "master" ]; then 
-        echo "push master" ; 
-      elif [ $CI_COMMIT_REF_NAME = "develop" ]; then 
-        echo "push develop"; 
-      elif [ $CI_COMMIT_REF_NAME = "release" ]; then 
-        echo "push release"; 
-      fi  
 test-app:
   stage: test
   script: 
@@ -65,4 +54,15 @@ quality_app:
   script:
     - mvn $MAVEN_CLI_OPTS sonar:sonar -s ci_settings.xml  -Dsonar.host.url=$SONAR_URL  -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=$SONAR_PROJECT_KEY 
 
+check-branch:
+  stage: check
+  script:
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then echo "push master" ; elif [ $CI_COMMIT_REF_NAME = "develop" ]; then echo "push develop"; elif [ $CI_COMMIT_REF_NAME = "release" ]; then echo "push release"; fi
+    - if [ $CI_COMMIT_REF_NAME = "master" ]; then
+        echo "push master" ;
+      elif [ $CI_COMMIT_REF_NAME = "develop" ]; then
+        echo "push develop";
+      elif [ $CI_COMMIT_REF_NAME = "release" ]; then
+        echo "push release";
+      fi
 
