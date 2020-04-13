@@ -80,7 +80,7 @@ deploy-to-developement:
 deploy-to-integration:  
   stage: deploy
   only:
-    - release*
+    - release/v1.0 
   dependencies:  
     - get-props-env  
   script:  
