@@ -85,6 +85,7 @@ deploy-to-integration:
   dependencies:  
     - get-props-env  
   script:  
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-int.yml/raw?ref=master' -O prop-conf-int.yml"
     - echo "deploy to integration env"  
     
 deploy-to-production:  
@@ -94,6 +95,7 @@ deploy-to-production:
   dependencies:  
     - get-props-env  
   script:  
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-prod.yml/raw?ref=master' -O prop-conf-prod.yml"
     - echo "deploy to production env"  
     
 
