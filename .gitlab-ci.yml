@@ -29,7 +29,7 @@ stages:
   - test  
     #- quality
   - check
-  #- upload
+  - environment
   - deploy
 
 # Cache downloaded dependencies and plugins between builds.
@@ -62,8 +62,8 @@ check-branch:
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "END";
       fi
     
-get-prop-env:
-  stage: upload
+get-props-env:
+  stage: environment
   script:
     - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml"
     - cat prop-conf-dev.yml
@@ -73,7 +73,7 @@ deploy-to-developement:
   only:
     - develop
   dependencies:  
-    - get-prop-env  
+    - get-props-env  
   script:  
     - echo "deploy to developement env" 
     
@@ -82,7 +82,7 @@ deploy-to-integration:
   only:
     - release
   dependencies:  
-    - get-prop-env  
+    - get-props-env  
   script:  
     - echo "deploy to integration env"  
     
@@ -91,7 +91,7 @@ deploy-to-production:
   only:
     - master
   dependencies:  
-    - get-prop-env  
+    - get-props-env  
   script:  
     - echo "deploy to production env"  
     
