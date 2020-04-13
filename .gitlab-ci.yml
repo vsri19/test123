@@ -75,7 +75,7 @@ deploy-to-developement:
   dependencies:  
     - get-prop-env  
   script:  
-    - echo "(TODO) deploy to developement env" 
+    - echo "deploy to developement env" 
     
 deploy-to-integration:  
   stage: deploy
@@ -84,7 +84,7 @@ deploy-to-integration:
   dependencies:  
     - get-prop-env  
   script:  
-    - echo "(TODO) deploy to integration env"  
+    - echo "deploy to integration env"  
     
 deploy-to-production:  
   stage: deploy
@@ -93,7 +93,7 @@ deploy-to-production:
   dependencies:  
     - get-prop-env  
   script:  
-    - echo "(TODO) deploy to production env"  
+    - echo "deploy to production env"  
     
 
 
