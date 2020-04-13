@@ -29,7 +29,7 @@ stages:
   - test  
     #- quality
   - check
-  - upload
+  #- upload
   - deploy
 
 # Cache downloaded dependencies and plugins between builds.
