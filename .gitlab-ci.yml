@@ -68,9 +68,32 @@ get-prop-env:
     - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml"
     - cat prop-conf-dev.yml
 
+deploy-to-developement:  
+  stage: deploy
+  only:
+    - develop
+  dependencies:  
+    - get-prop-env  
+  script:  
+    - echo "(TODO) deploy to developement env" 
+    
 deploy-to-integration:  
-  stage: deploy  
+  stage: deploy
+  only:
+    - release
   dependencies:  
     - get-prop-env  
   script:  
     - echo "(TODO) deploy to integration env"  
+    
+deploy-to-production:  
+  stage: deploy
+  only:
+    - master
+  dependencies:  
+    - get-prop-env  
+  script:  
+    - echo "(TODO) deploy to production env"  
+    
+
+
