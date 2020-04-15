@@ -65,6 +65,6 @@ check-branch:
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then
         echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then
-        echo "END";
+        echo "feature branch --> END";
       fi
 
