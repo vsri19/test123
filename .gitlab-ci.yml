@@ -19,6 +19,7 @@ variables:
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
   SONAR_URL: "$SONAR_HOST_URL"
   SONAR_PROJECT_KEY: "$CI_PROJECT_NAMESPACE:$CI_PROJECT_NAME"
+  ENV_DEPLOY: "none"
 
 # This template uses jdk8 for verifying and deploying images
 image: maven:3.3.9-jdk-8
@@ -28,6 +29,8 @@ stages:
   - test  
     #- quality
   - check
+  - environment
+  - deploy
 
 # Cache downloaded dependencies and plugins between builds.
 # To keep cache across branches add 'key: "$CI_JOB_NAME"'
@@ -38,11 +41,6 @@ cache:
 build-app:
   stage: build
   script: 
-    - echo $CI_COMMIT_REF_NAME
-    - if [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then echo "ENDENDENDEND ............" ; fi
-    - echo $SONAR_URL
-    - echo $SONAR_TOKEN
-    - echo $SONAR_PROJECT_KEY 
     - mvn $MAVEN_CLI_OPTS compile -s ci_settings.xml
     
 test-app:
@@ -58,6 +56,7 @@ test-app:
 check-branch:
   stage: check
   script:
+
     - if [ $CI_COMMIT_REF_NAME = "master" ]; then
         echo "Deploy to PROD" ;
       elif [ $CI_COMMIT_REF_NAME = "develop" ]; then
@@ -65,6 +64,44 @@ check-branch:
       elif [[ "$CI_COMMIT_REF_NAME" == release* ]]; then
         echo "Deploy to INT";
       elif [[ "$CI_COMMIT_REF_NAME" == feature* ]]; then
-        echo "feature branch --> END";
+        echo "feature branch --> END --> yes";
       fi
+    
+get-props-env:
+  stage: environment
+  script:
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml"
+    - cat prop-conf-dev.yml
+
+deploy-to-developement:  
+  stage: deploy
+  only:
+    - develop
+  dependencies:  
+    - get-props-env  
+  script:  
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-dev.yml/raw?ref=master' -O prop-conf-dev.yml"
+    - echo "deploy to developement env" 
+    
+deploy-to-integration:  
+  stage: deploy
+  only:
+    - release/v1.0 
+  dependencies:  
+    - get-props-env  
+  script:  
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-int.yml/raw?ref=master' -O prop-conf-int.yml"
+    - echo "deploy to integration env"  
+    
+deploy-to-production:  
+  stage: deploy
+  only:
+    - master
+  dependencies:  
+    - get-props-env  
+  script:  
+    - "wget --header='PRIVATE-TOKEN: jSTXA-CUBmaxA8sh3vdL' 'https://gitlab.com/api/v4/projects/18015300/repository/files/prop-conf-prod.yml/raw?ref=master' -O prop-conf-prod.yml"
+    - echo "deploy to production env"  
+    
+
 
