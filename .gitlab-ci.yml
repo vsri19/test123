@@ -24,8 +24,8 @@ build:
             else
                 echo "wrong cmd"
             fi
-        ##- |
-            ##for dirname in $(i -eq 0; i < $FILES; ++i)
-            ##do
-                ##echo "$dirname"
-            ##done
+        - |
+            for dirname in $(ls -d jil/dev)
+            do
+                echo "$dirname"
+            done
