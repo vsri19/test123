@@ -15,7 +15,8 @@ build:
         - ls -l | wc -l ##list number of files
         - ls jil/dev | wc -l ##list number of files in jil folder
         - ls jil/dev ##list all files in the directory
-        - ls jil/dev | head -n 1 ##find the latest file in particular directory
+        ##- ls jil/dev | head -n 1 ##find the latest file in particular directory
+        - ls -t1 |  head -n 1
         - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
         - find jil/dev -name "*.jil"
         - find jil/qa -name "*.jil" | wc -l
