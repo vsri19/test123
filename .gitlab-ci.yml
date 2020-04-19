@@ -17,3 +17,10 @@ build:
         - find jil/prod -name "*.sh" | wc -l
         - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         - echo "There are $FILES in dev env." 
+        - |
+            if [ $FILES == 2 ]
+            then
+                echo "Sunday is the holiday"
+            else
+                echo "wrong cmd"
+            fi
