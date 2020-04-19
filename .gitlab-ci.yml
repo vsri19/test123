@@ -25,7 +25,7 @@ build:
                 echo "wrong cmd"
             fi
         - |
-            for dirname in $(ls -d jil/dev)
+            for dirname in $(ls -d jil/dev/*)
             do
                 echo "$dirname"
             done
