@@ -27,7 +27,7 @@ build:
             fi
         - | 
             abc="sample1.jil"
-            for dirname in $(ls jil/dev | grep -v /) ##$(ls -d jil/dev/*) 
+            for dirname in $(ls -d jil/dev/*) 
             do
                 echo "$dirname"
                 if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files
