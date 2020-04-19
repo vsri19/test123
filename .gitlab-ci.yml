@@ -7,6 +7,7 @@ build:
     stage: build
     script:
         - echo "hello:"
-        - ls -lrt
-        - ls -l | wc -l
-        - ls -l | grep -v ^l | wc -l
+        - ls -lrt ##list all directory
+        - ls -l | wc -l ##list number of files
+        - ls -l | grep -v ^l | wc -l ##list number of files
+        - ls -jil | wc -l ##list number of files in jil folder
