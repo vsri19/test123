@@ -11,7 +11,9 @@ build:
         - ls -l | wc -l ##list number of files
         - ls -l | grep -v ^l | wc -l ##list number of files
         - ls jil/dev | wc -l ##list number of files in jil folder
-        - find jil/dev -name "*.jil" | wc -l
-        - find jil/dev -name "*.md" | wc -l
+        - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
+        - find jil/dev -name "*.jil" 
         - find jil/qa -name "*.jil" | wc -l
         - find jil/prod -name "*.sh" | wc -l
+        - FILES='find jil/dev -name "*.jil" | wc -l' ##storing the values in variable 
+        - echo "There are $FILES in dev env." 
