@@ -15,5 +15,5 @@ build:
         - find jil/dev -name "*.jil" 
         - find jil/qa -name "*.jil" | wc -l
         - find jil/prod -name "*.sh" | wc -l
-        - FILES='find jil/dev -name "*.jil" | wc -l' ##storing the values in variable 
+        - FILES='sudo find jil/dev -name "*.jil" | wc -l' ##storing the values in variable 
         - echo "There are $FILES in dev env." 
