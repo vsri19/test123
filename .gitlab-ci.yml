@@ -1,8 +1,5 @@
 image: alpine:latest
 
-variables:
-    DEV: "jil/dev"
-    
 stages:
     - build
 
