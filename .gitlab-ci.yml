@@ -15,7 +15,7 @@ build:
         - ls -l | wc -l ##list number of files
         - ls jil/dev | wc -l ##list number of files in jil folder
         - ls jil/dev ##list all files in the directory
-        - ls jil/dev |  head -n 1 ##find the latest file in particular directory
+        - ls jil/dev |  head -n 1
         - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
         - find jil/dev -name "*.jil"
         - find jil/qa -name "*.jil" | wc -l
@@ -23,7 +23,7 @@ build:
         - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         - echo "There are $FILES in dev env." 
         - |
-            if [ $FILES == 3 ]
+            if [ $FILES == 2 ]
             then
                 echo "Sunday is the holiday"
             else
