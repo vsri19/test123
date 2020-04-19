@@ -25,10 +25,11 @@ build:
                 echo "wrong cmd"
             fi
         - |
+            abc="sample1.jil"
             for dirname in $(ls -d jil/dev/*)
             do
                 echo "$dirname"
-                if cmp -s "$dirname" "sample1.jil";
+                if cmp -s "$dirname" "$abc";
                 then
                     echo "file found"
                 else 
