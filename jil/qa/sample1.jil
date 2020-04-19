@@ -1,0 +1,15 @@
+/* ----------------- B2B_RIA_BUILD_PRICING_OUTBOUND_BXJ ----------------- */
+
+insert_job: B2B_RIA_BUILD_PRICING_OUTBOUND_BXJ   job_type: BOX
+owner: sa-autosys-b2b-d@w2klnl
+permission: gx,wx
+date_conditions: 1
+days_of_week: tu,we,th,fr,sa
+exclude_calendar: LFG_Holidays_AM_Runs
+start_times: "3:00"
+description: "Run the jobs to create AAP Pricing DTCC RIA outbound file to be sent to the vendors/partners"
+box_terminator: 1
+alarm_if_fail: 1
+alarm_if_terminated: 1
+group: B2B
+application: RIA
