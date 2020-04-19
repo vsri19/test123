@@ -28,4 +28,10 @@ build:
             for dirname in $(ls -d jil/dev/*)
             do
                 echo "$dirname"
+                if [ $dirname == "sample1.jil" ]
+                then
+                    echo "file found"
+                else 
+                    echo "file not found"
+                fi
             done
