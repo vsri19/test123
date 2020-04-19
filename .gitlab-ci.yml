@@ -25,7 +25,7 @@ build:
                 echo "wrong cmd"
             fi
         - |
-            for dirname in $FILES
+            for dirname in $(i -eq 0; i < $FILES; ++i)
             do
                 echo "$dirname"
             done
