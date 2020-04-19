@@ -28,7 +28,7 @@ build:
             for dirname in $(ls -d jil/dev/*)
             do
                 echo "$dirname"
-                if [ $dirname -eq "sample1.jil" ]
+                if [ -f "$dirname" ]
                 then
                     echo "file found"
                 else 
