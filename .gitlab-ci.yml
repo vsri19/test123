@@ -24,3 +24,8 @@ build:
             else
                 echo "wrong cmd"
             fi
+        - |
+            for dirname in $FILES
+            do
+                echo "$dirname"
+            done
