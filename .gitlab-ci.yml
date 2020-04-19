@@ -3,10 +3,6 @@ image: alpine:latest
 stages:
     - build
 
-cache:
-    paths:
-        - artifact_folder/
-
 build:
     stage: build
     script:
