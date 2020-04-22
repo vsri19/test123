@@ -37,9 +37,15 @@ build:
                     echo "file not found"
                 fi
             done
+        - find jil/dev/* -iname "*.jil" -mtime -1
+        - find jil/dev/* -iname "*.jil" -mtime -4
+        - find jil/dev/* -iname "*.jil" -mtime 1
+        - find jil/dev/* -iname "*.jil" -mtime 3
+        - find jil/dev/* -iname "*.jil" -mtime 4
         - find jil/prod/* -iname "*.jil" -mtime -1
         - find jil/prod/* -iname "*.jil" -mtime -4
         - find jil/prod/* -iname "*.jil" -mtime 1
+        - find jil/prod/* -iname "*.jil" -mtime 3
         - find jil/prod/* -iname "*.jil" -mtime 4
         - find jil/prod/* -maxdepth 1 -mtime -1
         - find jil/prod/* -maxdepth 1 -mtime -4
