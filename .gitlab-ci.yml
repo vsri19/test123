@@ -39,6 +39,8 @@ build:
             done
         - find jil/prod/* -iname "*.jil" -mtime -1
         - find jil/prod/* -iname "*.jil" -mtime -4
+        - find jil/prod/* -iname "*.jil" -mtime 1
+        - find jil/prod/* -iname "*.jil" -mtime 4
         - find jil/prod/* -maxdepth 1 -mtime -1
         - find jil/prod/* -maxdepth 1 -mtime -4
         ##- find jil/dev -type f -newermt 4/19/2020 ##does not work in the yml file becoz of newermt
