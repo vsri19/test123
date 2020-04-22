@@ -37,6 +37,6 @@ build:
                     echo "file not found"
                 fi
             done
-        - find jil/prod/* -iname "*.jil" -atime -1
-        - find jil/prod/* -iname "*.jil" -atime -4
+        - find jil/prod/* -iname "*.jil" -mtime -1
+        - find jil/prod/* -iname "*.jil" -mtime -4
         
