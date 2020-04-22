@@ -52,5 +52,4 @@ build:
         ##- find jil/dev -type f -newermt 4/19/2020 ##does not work in the yml file becoz of newermt
         ##- find jil/dev -type f -newerat 4/19/2020 ##does not work in the yml file becoz of newerat
         
-        - rm jil/dev/readme.md
-        - echo "removed successfully"
+        - rm -f README.md
