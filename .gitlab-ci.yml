@@ -3,6 +3,10 @@ image: alpine:latest
 stages:
     - build
 
+before_script:
+    - apk update
+    - apk add zip
+
 build:
     stage: build
     script:
