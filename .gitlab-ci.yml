@@ -46,26 +46,26 @@ build:
                 fi
             done
         
-        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
-            for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
-            do
-                echo "$dirname"
-                for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
-                do
-                    echo $dir
-                    if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
-                    then
-                        echo "file found"
-                        echo "*****"
-                        cp $dir code ##copyig the files from $dir to code directory
-                        ls code
-                        echo "*****"
-                        zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
-                    else 
-                        echo "file not found"
-                    fi
-                done
-            done
+##        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
+            ##for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
+            ##do
+                ##echo "$dirname"
+                ##for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
+                ##do
+                    ##echo $dir
+                    ##if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
+                    ##then
+                        ##echo "file found"
+                        ##echo "*****"
+                        ##cp $dir code ##copyig the files from $dir to code directory
+                        ##ls code
+                        ##echo "*****"
+                        ##zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
+                    ##else 
+                        ##echo "file not found"
+                    ##fi
+                ##done
+            ##done
         
         - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND
             for dirname in $(cat raw.md) ##read the file and store the values in variable 
