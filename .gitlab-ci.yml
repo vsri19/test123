@@ -46,7 +46,7 @@ build:
                 fi
             done
         
-        - |
+        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
             for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
             do
                 echo "$dirname"
@@ -65,6 +65,13 @@ build:
                         echo "file not found"
                     fi
                 done
+            done
+        
+        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND
+            for dirname in $(cat raw.md) ##read the file and store the values in variable 
+            do
+                var=$(find jil/dev -name $dirname)
+                zip -j arti.zip $var
             done
     artifacts:
         paths:
