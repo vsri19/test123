@@ -13,11 +13,11 @@ build:
         - ls jil/dev | wc -l ##list number of files in jil folder
         - ls jil/dev ##list all files in the directory
         - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
-        - find jil/dev -name "*.jil"
-        - find jil/qa -name "*.jil" | wc -l
-        - find jil/prod -name "*.sh" | wc -l
+        - find jil/dev -name "*.jil" ##finds and list out the file with .jil extension
+        - find jil/prod -name "*.sh" | wc -l ##finds the file with .sh... if file not found with .sh extension then it will display as 0
         - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         - echo "There are $FILES in dev env." 
+        
         - |
             if [ $FILES == 2 ]
             then
@@ -25,31 +25,41 @@ build:
             else
                 echo "wrong cmd"
             fi
+        
         - | 
             abc="sample1.jil"
-            for dirname in $(ls -d jil/dev/*)  ##for loop
+            for dirname in $(ls -d jil/dev/*)  ##listing all files and storing in variable by using for loop
             do
                 echo "$dirname"
-                if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files
+                if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files (should give the path for the file which has to be compared with)
                 then
                     echo "file found"
                 else 
                     echo "file not found"
                 fi
             done
-        - find jil/dev/* -iname "*.jil" -mtime -1
-        - find jil/dev/* -iname "*.jil" -mtime -4
-        - find jil/dev/* -iname "*.jil" -mtime 1
-        - find jil/dev/* -iname "*.jil" -mtime 3
-        - find jil/dev/* -iname "*.jil" -mtime 4
-        - find jil/prod/* -iname "*.jil" -mtime -1
-        - find jil/prod/* -iname "*.jil" -mtime -4
-        - find jil/prod/* -iname "*.jil" -mtime 1
-        - find jil/prod/* -iname "*.jil" -mtime 3
-        - find jil/prod/* -iname "*.jil" -mtime 4
-        - find jil/prod/* -maxdepth 1 -mtime -1
-        - find jil/prod/* -maxdepth 1 -mtime -4
-        ##- find jil/dev -type f -newermt 4/19/2020 ##does not work in the yml file becoz of newermt
-        ##- find jil/dev -type f -newerat 4/19/2020 ##does not work in the yml file becoz of newerat
         
-        - rm -f README.md
+        - |
+            for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
+            do
+                echo "$dirname"
+                for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
+                do
+                    echo $dir
+                    if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
+                    then
+                        echo "file found"
+                        echo "*****"
+                        cp $dir code ##copyig the files from $dir to code directory
+                        ls code
+                        echo "*****"
+                        zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
+                    else 
+                        echo "file not found"
+                    fi
+                done
+            done
+
+        - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
+        - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
+        - find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
