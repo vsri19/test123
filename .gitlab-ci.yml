@@ -63,6 +63,9 @@ build:
                     fi
                 done
             done
+        artifacts:
+            paths:
+                - arti.zip
 
         - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
         - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
