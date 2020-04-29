@@ -19,6 +19,9 @@ build:
         - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
         - find jil/dev -name "*.jil" ##finds and list out the file with .jil extension
         - find jil/prod -name "*.sh" | wc -l ##finds the file with .sh... if file not found with .sh extension then it will display as 0
+        - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
+        - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
+        - find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
         - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         - echo "There are $FILES in dev env." 
         
@@ -63,10 +66,6 @@ build:
                     fi
                 done
             done
-        artifacts:
-            paths:
-                - arti.zip
-
-        - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
-        - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
-        - find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
+    artifacts:
+        paths:
+            - arti.zip
