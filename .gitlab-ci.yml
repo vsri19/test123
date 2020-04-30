@@ -46,7 +46,7 @@ build:
                 ##fi
             ##done
         
-##        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
+        ##- | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
             ##for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
             ##do
                 ##echo "$dirname"
@@ -67,12 +67,19 @@ build:
                 ##done
             ##done
         
-        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND
-            for dirname in $(cat raw.md)  
+        ##- | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND. **NOTE: PIPELINE WILL FAIL IF THE FILE IS NOT AVAILABLE WHICH IS MENTIONED IN .md FILE** 
+            ##for dirname in $(cat raw.md)  
+            ##do
+                ##var=$(find jil/dev -name $dirname)
+                ##zip -j arti.zip $var
+            ##done
+            
+        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
+            for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
             do
-                var=$(find jil/dev -name $dirname)
-                zip -j arti.zip $var
+                zip -j arti.zip $file
             done
+
     artifacts:
         paths:
             - arti.zip
