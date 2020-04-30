@@ -6,6 +6,7 @@ stages:
 before_script:
     - apk update
     - apk add zip
+    - apk add git
 
 build:
     stage: build
