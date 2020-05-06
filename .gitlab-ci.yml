@@ -75,7 +75,7 @@ build:
                 ##zip -j arti.zip $var
             ##done
             
-        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
+        - | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
             for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
             do
                 zip -j arti.zip $file
