@@ -25,7 +25,7 @@ build:
         ##- find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
         ##- FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         ##- echo "There are $FILES in dev env." 
-        ##grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
+        ##- grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
         
         ##- |
             ##if [ $FILES == 2 ]
