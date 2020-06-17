@@ -12,101 +12,101 @@ build:
     stage: build
     script:
         - echo "hello:"
-        ##- ls jil/dev | head -n 1 ##latest files
-        ##- ls -lrt ##list all directory
-        ##- ls -l | wc -l ##list number of files
-        ##- ls jil/dev | wc -l ##list number of files in jil folder
-        ##- ls jil/dev ##list all files in the directory
-        ##- find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
-        ##- find jil/dev -name "*.jil" ##finds and list out the file with .jil extension
-        ##- find jil/prod -name "*.sh" | wc -l ##finds the file with .sh... if file not found with .sh extension then it will display as 0
-        ##- find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
-        ##- find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
-        ##- find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
-        ##- FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
-        ##- echo "There are $FILES in dev env." 
-        ##- grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
-        ##- dirname $(find dirname -name '*.jil')##finding only the directory for the particular file
+        - ls jil/dev | head -n 1 ##latest files
+        - ls -lrt ##list all directory
+        - ls -l | wc -l ##list number of files
+        - ls jil/dev | wc -l ##list number of files in jil folder
+        - ls jil/dev ##list all files in the directory
+        - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
+        - find jil/dev -name "*.jil" ##finds and list out the file with .jil extension
+        - find jil/prod -name "*.sh" | wc -l ##finds the file with .sh... if file not found with .sh extension then it will display as 0
+        - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
+        - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
+        - find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
+        - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
+        - echo "There are $FILES in dev env." 
+        - grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
+        - dirname $(find dirname -name '*.jil')##finding only the directory for the particular file
         
-        ##- |
-            ##if [ $FILES == 2 ]
-            ##then
-                ##echo "Sunday is the holiday"
-            ##else
-                ##echo "wrong cmd"
-            ##fi
+        - |
+            if [ $FILES == 2 ]
+            then
+                echo "Sunday is the holiday"
+            else
+                echo "wrong cmd"
+            fi
         
-        ##- | 
-            ##abc="sample1.jil"
-            ##for dirname in $(ls -d jil/dev/*)  ##listing all files and storing in variable by using for loop
-            ##do
-                ##echo "$dirname"
-                ##if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files (should give the path for the file which has to be compared with)
-                ##then
-                    ##echo "file found"
-                ##else 
-                    ##echo "file not found"
-                ##fi
-            ##done
+        - | 
+            abc="sample1.jil"
+            for dirname in $(ls -d jil/dev/*)  ##listing all files and storing in variable by using for loop
+            do
+                echo "$dirname"
+                if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files (should give the path for the file which has to be compared with)
+                then
+                    echo "file found"
+                else 
+                    echo "file not found"
+                fi
+            done
         
-        ##- | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
-            ##for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
-            ##do
-                ##echo "$dirname"
-                ##for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
-                ##do
-                    ##echo $dir
-                    ##if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
-                    ##then
-                        ##echo "file found"
-                        ##echo "*****"
-                        ##cp $dir code ##copyig the files from $dir to code directory
-                        ##ls code
-                        ##echo "*****"
-                        ##zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
-                    ##else 
-                        ##echo "file not found"
-                    ##fi
-                ##done
-            ##done
+        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
+            for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
+            do
+                echo "$dirname"
+                for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
+                do
+                    echo $dir
+                    if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
+                    then
+                        echo "file found"
+                        echo "*****"
+                        cp $dir code ##copyig the files from $dir to code directory
+                        ls code
+                        echo "*****"
+                        zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
+                    else 
+                        echo "file not found"
+                    fi
+                done
+            done
         
-        ##- | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND. **NOTE: PIPELINE WILL FAIL IF THE FILE IS NOT AVAILABLE WHICH IS MENTIONED IN .md FILE** 
-            ##for dirname in $(cat raw.md)  
-            ##do
-                ##var=$(find jil/dev -name $dirname)
-                ##zip -j arti.zip $var
-            ##done
+        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND. **NOTE: PIPELINE WILL FAIL IF THE FILE IS NOT AVAILABLE WHICH IS MENTIONED IN .md FILE** 
+            for dirname in $(cat raw.md)  
+            do
+                var=$(find jil/dev -name $dirname)
+                zip -j arti.zip $var
+            done
             
-        ##- | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
-            ##for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
-            ##do
-                ##zip -j arti.zip $file
-            ##done
+        - | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
+            for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
+            do
+                zip -j arti.zip $file
+            done
 
-    ##artifacts:
-        ##paths:
-            ##- arti.zip
-##ARRAY
-##variable:
-    ##env: "dev qa prod"
-##for array in $env
-##do  
-    ##echo "$array"
-##done
+    artifacts:
+        paths:
+            - arti.zip
+ARRAY
+variable:
+    env: "dev qa prod"
+for array in $env
+do  
+    echo "$array"
+done
 
-##USING FUNCTION IN GITLAB YAML FILE
-##.build_fn: &build_fn |
-  ##function eol() {
-    ##elm="hello"
-    ##elm1="world"
-    ##echo "elm '$elm' elm1 '$elm1'" >> file.txt
-  ##}
+USING FUNCTION IN GITLAB YAML FILE
+.build_fn: &build_fn |
+  function eol() {
+    elm="hello"
+    elm1="world"
+    echo "elm '$elm' elm1 '$elm1'" >> file.txt
+  }
 
-##build:
-  ##stage: build
-  ##script:
-    ##- *build_fn
-    ##- eol
-  ##artifacts:
-    ##paths:
-      ##- file.txt
+build:
+  stage: build
+  script:
+    - *build_fn
+    - eol
+  artifacts:
+    paths:
+      - file.txt
