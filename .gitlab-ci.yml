@@ -95,7 +95,7 @@ build:
             - arti.zip
 
 
-USING FUNCTION IN GITLAB YAML FILE
+##USING FUNCTION IN GITLAB YAML FILE
 .build_fn: &build_fn |
   function eol() {
     elm="hello"
