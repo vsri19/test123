@@ -26,6 +26,7 @@ build:
         ##- FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         ##- echo "There are $FILES in dev env." 
         ##- grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
+        ##- dirname $(find dirname -name '*.jil')##finding only the directory for the particular file
         
         ##- |
             ##if [ $FILES == 2 ]
