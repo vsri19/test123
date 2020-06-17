@@ -76,12 +76,29 @@ build:
                 ##zip -j arti.zip $var
             ##done
             
-        - | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
-            for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
-            do
-                zip -j arti.zip $file
-            done
+        ##- | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
+            ##for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
+            ##do
+                ##zip -j arti.zip $file
+            ##done
 
-    artifacts:
-        paths:
-            - arti.zip
+    ##artifacts:
+        ##paths:
+            ##- arti.zip
+
+##USING FUNCTION IN GITLAB YAML FILE
+##.build_fn: &build_fn |
+  ##function eol() {
+    ##elm="hello"
+    ##elm1="world"
+    ##echo "elm '$elm' elm1 '$elm1'" >> file.txt
+  ##}
+
+##build:
+  ##stage: build
+  ##script:
+    ##- *build_fn
+    ##- eol
+  ##artifacts:
+    ##paths:
+      ##- file.txt
