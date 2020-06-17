@@ -86,6 +86,13 @@ build:
     ##artifacts:
         ##paths:
             ##- arti.zip
+##ARRAY
+##variable:
+    ##env: "dev qa prod"
+##for array in $env
+##do  
+    ##echo "$array"
+##done
 
 ##USING FUNCTION IN GITLAB YAML FILE
 ##.build_fn: &build_fn |
