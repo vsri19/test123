@@ -111,3 +111,27 @@ build:
   artifacts:
     paths:
       - file.txt
+
+##SEND EMAIL USING ***POWERSHELL***
+variables:
+    Tolist: 
+    Cclist: 
+Base-EMail:
+  stage: EMail
+  script:
+    - '[string[]]$ToEmailList = $Tolist.Split(",")'
+    - '[string[]]$CcEmailList = $Cclist.Split(",")'
+    - Send-MailMessage
+        -To $ToEmailList
+        -CC $CcEmailList
+        -From "$Fromlist"
+        -Subject "SUBJECT"
+        -SmtpServer "mail.lnc.com"
+        -BodyAsHtml "BODY OF THE MAIL
+        <br />
+        <br /> <b>DB URL = $dburl</b>
+        <br />
+        <br /> Thanks"
+        -Attachments "$CI_PROJECT_DIR/Publish_1.0-$CI_PIPELINE_ID.sql"
+  tags:
+    - windows
