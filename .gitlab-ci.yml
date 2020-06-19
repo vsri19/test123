@@ -26,7 +26,8 @@ build:
         - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
         - echo "There are $FILES in dev env." 
         - grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
-        - dirname $(find dirname -name '*.jil')##finding only the directory for the particular file
+        - dirname $(find dirname -name '*.jil') ##finding only the directory for the particular file
+        - sed -i "s#<---word present the file--->#<---replacement word--->#g" <---path of the file---> ##command to replace a word in a file
         
         - |
             if [ $FILES == 2 ]
