@@ -104,20 +104,54 @@ build:
     echo "elm '$elm' elm1 '$elm1'" >> file.txt
   }
 
-build:
+.build:
   stage: build
   script:
     - *build_fn
-    - eol
+    - eol ## function name
   artifacts:
     paths:
       - file.txt
 
+##SEND EMAIL USING ***LINUX***     ---Comes with the given user name---
+.build:
+    stage: build
+    before_script:
+        - apk add bash
+        - apk add ssmtp
+    script:
+        - |
+            cat > /etc/ssmtp/ssmtp.conf << EOF
+            root=<---email id--->@outlook.com ##provide an outlook email id
+            mailhub=smtp.outlook.com:587 ##provide correct mailhub for required server... search in GOOGLE
+            hostname=localhost  
+            FromLineOverride=YES
+            EOF
+        - |
+            cat > mail.txt << EOF
+            To: ##provide an outlook email id to be sent
+            From: ##provide an outlook email id for from
+            Subject: Mail with SSMTP
+    
+            Hello, this is a test mail.
+            EOF
+        - ssmtp <---email id--->@outlook.com < mail.txt
+        
+##SEND EMAIL USING ***LINUX***     ---Comes with the root user---
+.build:
+    stage: build
+    before_script:
+        - apk add bash
+        - apk add ssmtp
+    script:
+        - cat <---file_name---> | ssmtp <---email id--->@outlook.com ## file name contains the body of the email ***here subject cannot be mentioned***
+
 ##SEND EMAIL USING ***POWERSHELL***
 variables:
-    Tolist: 
-    Cclist: 
-Base-EMail:
+    Tolist: ## provide the email address to be sent
+    Cclist: ## provide the email address to be copied
+    Fromlist: ## provide the email address to be sent from
+.Base-EMail:
   stage: EMail
   script:
     - '[string[]]$ToEmailList = $Tolist.Split(",")'
@@ -125,7 +159,7 @@ Base-EMail:
     - Send-MailMessage
         -To $ToEmailList
         -CC $CcEmailList
-        -From "$Fromlist"
+        -From "$Fromlist" 
         -Subject "SUBJECT"
         -SmtpServer "mail.lnc.com"
         -BodyAsHtml "BODY OF THE MAIL
