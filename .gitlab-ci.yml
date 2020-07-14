@@ -11,7 +11,9 @@ before_script:
 build:
     stage: build
     script:
-        - echo "hello:"
+        - echo "hello"
+        - echo "TEXT $(tput bold)MESSAGE" #to make a particular word bold
+        - echo -e "\033[1mTEXT MESSAGE\033[0m" # 1-bold,2-Dim,3-Italic,4-Underlined,5-Blinking,7-Reverse,8-Invisible ***to make a line style***
         - ls jil/dev | head -n 1 ##latest files
         - ls -lrt ##list all directory
         - ls -l | wc -l ##list number of files
