@@ -1,55 +1,174 @@
-# This file is a template, and might need editing before it works on your project.
-# Build JAVA applications using Apache Maven (http://maven.apache.org)
-# For docker image tags see https://hub.docker.com/_/maven/
-#
-# For general lifecycle information see https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+image: alpine:latest
 
-# This template will build and test your projects
-# * Caches downloaded dependencies and plugins between invocation.
-# * Verify but don't deploy merge requests.
-# * Deploy built artifacts from master branch only.
+stages:
+    - build
 
+before_script:
+    - apk update
+    - apk add zip
+    - apk add git
+
+build:
+    stage: build
+    script:
+        - echo "hello"
+        - echo "TEXT $(tput bold)MESSAGE" #to make a particular word bold
+        - echo -e "\033[1mTEXT MESSAGE\033[0m" # 1-bold,2-Dim,3-Italic,4-Underlined,5-Blinking,7-Reverse,8-Invisible ***to make a line style***
+        - ls jil/dev | head -n 1 ##latest files
+        - ls -lrt ##list all directory
+        - ls -l | wc -l ##list number of files
+        - ls jil/dev | wc -l ##list number of files in jil folder
+        - ls jil/dev ##list all files in the directory
+        - find jil/dev -name "*.jil" | wc -l ##finding number of files with specific extension 
+        - find jil/dev -name "*.jil" ##finds and list out the file with .jil extension
+        - find jil/prod -name "*.sh" | wc -l ##finds the file with .sh... if file not found with .sh extension then it will display as 0
+        - find jil/dev/* -iname "*.jil" -mtime -1 ## fetch the commited files for past 24hrs 
+        - find jil/dev/* -maxdepth 1 -mtime -1 ## fetch the commited files for past 24hrs
+        - find jil/dev/* -iname "*.jil" -mtime 1 ## fetch the commited files for exactly 1day
+        - FILES=$(find jil/dev -name "*.jil" | wc -l) ##storing the values in variable 
+        - echo "There are $FILES in dev env." 
+        - grep -oP "code/+\K\w+" a.txt ##to find a next word after the input value
+        - dirname $(find dirname -name '*.jil') ##finding only the directory for the particular file
+        - sed -i "s#<---word present the file--->#<---replacement word--->#g" <---path of the file---> ##command to replace a word in a file
+        
+        - |
+            if [ $FILES == 2 ]
+            then
+                echo "Sunday is the holiday"
+            else
+                echo "wrong cmd"
+            fi
+        
+        - | 
+            abc="sample1.jil"
+            for dirname in $(ls -d jil/dev/*)  ##listing all files and storing in variable by using for loop
+            do
+                echo "$dirname"
+                if cmp -s "$dirname" "jil/dev/$abc"; ##comparing files (should give the path for the file which has to be compared with)
+                then
+                    echo "file found"
+                else 
+                    echo "file not found"
+                fi
+            done
+        
+        - | ## THIS METHOD IS TO FIND THE FILES BY COMPARING
+            for dirname in $(cat raw.md)  ##read the file and store the values in variable by using for loop
+            do
+                echo "$dirname"
+                for dir in $(ls -d jil/dev/*) ##listing all files and storing in variable by using for loop
+                do
+                    echo $dir
+                    if cmp -s "$dir" "jil/dev/$dirname"; ##comparing files (should give the path for the file which has to be compared with)
+                    then
+                        echo "file found"
+                        echo "*****"
+                        cp $dir code ##copyig the files from $dir to code directory
+                        ls code
+                        echo "*****"
+                        zip -r arti.zip code/* ##zipping the whole code folder **for zipping only files use cmd -> zip -j arti.zip $dir **  
+                    else 
+                        echo "file not found"
+                    fi
+                done
+            done
+        
+        - | ##THIS METHOD IS TO FIND THE FILES WITHOUT COMPARING... USING "FIND" COMMAND. **NOTE: PIPELINE WILL FAIL IF THE FILE IS NOT AVAILABLE WHICH IS MENTIONED IN .md FILE** 
+            for dirname in $(cat raw.md)  
+            do
+                var=$(find jil/dev -name $dirname)
+                zip -j arti.zip $var
+            done
+            
+        - | ##THIS METHOD IS TO FIND THE FILES BY FINDING THE DIFFERENCE BETWEEN LATEST AND PREVIOUS COMMITS... USING "GIT" COMMAND. **NOTE: PIPELINE WILL PASS EVENTHOUGH FILE IS NOT PRESENT**
+            for file in $(git diff --diff-filter=A --name-only "$CI_COMMIT_BEFORE_SHA" "$CI_COMMIT_SHA" -name "*.jil")
+            do
+                zip -j arti.zip $file
+            done
+            
+        - | ##ARRAY
+            env: "dev qa prod"
+            for array in $env
+            do  
+                echo "$array"
+            done
+
+    artifacts:
+        paths:
+            - arti.zip
+
+
+##USING FUNCTION IN GITLAB YAML FILE
+.build_fn: &build_fn |
+  function eol() {
+    elm="hello"
+    elm1="world"
+    echo "elm '$elm' elm1 '$elm1'" >> file.txt
+  }
+
+.build:
+  stage: build
+  script:
+    - *build_fn
+    - eol ## function name
+  artifacts:
+    paths:
+      - file.txt
+
+##SEND EMAIL USING ***LINUX***     ---Comes with the given user name---
+.build:
+    stage: build
+    before_script:
+        - apk add bash
+        - apk add ssmtp
+    script:
+        - |
+            cat > /etc/ssmtp/ssmtp.conf << EOF
+            root=<---email id--->@outlook.com ##provide an outlook email id
+            mailhub=smtp.outlook.com:587 ##provide correct mailhub for required server... search in GOOGLE
+            hostname=localhost  
+            FromLineOverride=YES
+            EOF
+        - |
+            cat > mail.txt << EOF
+            To: ##provide an outlook email id to be sent
+            From: ##provide an outlook email id for from
+            Subject: Mail with SSMTP
+    
+            Hello, this is a test mail.
+            EOF
+        - ssmtp <---email id--->@outlook.com < mail.txt
+        
+##SEND EMAIL USING ***LINUX***     ---Comes with the root user---
+.build:
+    stage: build
+    before_script:
+        - apk add bash
+        - apk add ssmtp
+    script:
+        - cat <---file_name---> | ssmtp <---email id--->@outlook.com ## file name contains the body of the email ***here subject cannot be mentioned***
+
+##SEND EMAIL USING ***POWERSHELL***
 variables:
-  # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
-  # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
-  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
-  # As of Maven 3.3.0 instead of this you may define these options in `.mvn/maven.config` so the same config is used
-  # when running from the command line.
-  # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
-  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
-
-# This template uses jdk8 for verifying and deploying images
-image: maven:3.3.9-jdk-8
-
-# Cache downloaded dependencies and plugins between builds.
-# To keep cache across branches add 'key: "$CI_JOB_NAME"'
-cache:
-  paths:
-    - .m2/repository
-
-# For merge requests do not `deploy` but only run `verify`.
-# See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
-.verify: &verify
-  stage: test
+    Tolist: ## provide the email address to be sent
+    Cclist: ## provide the email address to be copied
+    Fromlist: ## provide the email address to be sent from
+.Base-EMail:
+  stage: EMail
   script:
-    - 'mvn $MAVEN_CLI_OPTS verify'
-  except:
-    - master
-
-# Verify merge requests using JDK8
-verify:jdk8:
-  <<: *verify
-
-# To deploy packages from CI, create a ci_settings.xml file
-# For deploying packages to GitLab's Maven Repository: See https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for more details.
-# Please note: The GitLab Maven Repository is currently only available in GitLab Premium / Ultimate.
-# For `master` branch run `mvn deploy` automatically.
-deploy:jdk8:
-  stage: deploy
-  script:
-    - if [ ! -f ci_settings.xml ];
-        then echo "CI settings missing\! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for instructions.";
-      fi
-    - 'mvn $MAVEN_CLI_OPTS deploy -s ci_settings.xml'
-  only:
-    - master
+    - '[string[]]$ToEmailList = $Tolist.Split(",")'
+    - '[string[]]$CcEmailList = $Cclist.Split(",")'
+    - Send-MailMessage
+        -To $ToEmailList
+        -CC $CcEmailList
+        -From "$Fromlist" 
+        -Subject "SUBJECT"
+        -SmtpServer "mail.lnc.com"
+        -BodyAsHtml "BODY OF THE MAIL
+        <br />
+        <br /> <b>DB URL = $dburl</b>
+        <br />
+        <br /> Thanks"
+        -Attachments "$CI_PROJECT_DIR/Publish_1.0-$CI_PIPELINE_ID.sql"
+  tags:
+    - windows
