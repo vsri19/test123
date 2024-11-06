@@ -7,16 +7,6 @@ pipeline {
         MAVEN_OPTS = '-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=${env.WORKSPACE}/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true'
         MAVEN_CLI_OPTS = '--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true'
     }
-
-    stages {
-        stage('Verify Workspace') {
-            steps {
-                script {
-                    sh 'pwd'
-                    sh 'ls -l'
-                }
-            }
-        }
         stage('Verify') {
             when {
                 not { branch 'master' }
