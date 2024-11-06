@@ -9,6 +9,14 @@ pipeline {
     }
 
     stages {
+        stage('Verify Workspace') {
+            steps {
+                script {
+                    sh 'pwd'
+                    sh 'ls -l'
+                }
+            }
+        }
         stage('Verify') {
             when {
                 not { branch 'master' }
