@@ -31,7 +31,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh '''if [ ! -f ci_settings.xml ]; then echo "CI settings missing\! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for instructions."; fi'''
+                sh '''if [ ! -f ci_settings.xml ]; then echo "CI settings missing! If deploying to GitLab Maven Repository, please see https://docs.gitlab.com/ee/user/project/packages/maven_repository.html#creating-maven-packages-with-gitlab-cicd for instructions."; fi'''
                 sh '''mvn $MAVEN_CLI_OPTS deploy -s ci_settings.xml'''
             }
         }
